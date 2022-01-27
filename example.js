@@ -1,15 +1,15 @@
-const express = require('express')
+const polka = require('polka')
 
-var app = express()
+var app = polka()
 
 const basicAuth = require('./index.js')
 
 /**
-* express-basic-auth
+* polka-basic-auth
 *
 * Example server. Just run in the same folder:
 *
-* npm install express express-basic-auth
+* `npm install`
 *
 * and then run this file with node ('node example.js')
 *
@@ -75,39 +75,48 @@ var realmFunctionAuth = basicAuth({
 })
 
 app.get('/static', staticUserAuth, function(req, res) {
-    res.status(200).send('You passed')
+    res.statusCode = 200
+    res.end('You passed')
 })
 
 app.get('/custom', customAuthorizerAuth, function(req, res) {
-    res.status(200).send('You passed')
+    res.statusCode = 200
+    res.end('You passed')
 })
 
 app.get('/challenge', challengeAuth, function(req, res) {
-    res.status(200).send('You passed')
+    res.statusCode = 200
+    res.end('You passed')
 })
 
 app.get('/async', asyncAuth, function(req, res) {
-    res.status(200).send('You passed')
+    res.statusCode = 200
+    res.end('You passed')
 })
 
 app.get('/custombody', customBodyAuth, function(req, res) {
-    res.status(200).send('You passed')
+    res.statusCode = 200
+    res.end('You passed')
 })
 
 app.get('/staticbody', staticBodyAuth, function(req, res) {
-    res.status(200).send('You passed')
+    res.statusCode = 200
+    res.end('You passed')
 })
 
 app.get('/jsonbody', jsonBodyAuth, function(req, res) {
-    res.status(200).send('You passed')
+    res.statusCode = 200
+    res.end('You passed')
 })
 
 app.get('/realm', realmAuth, function(req, res) {
-    res.status(200).send('You passed')
+    res.statusCode = 200
+    res.end('You passed')
 })
 
 app.get('/realmfunction', realmFunctionAuth, function(req, res) {
-    res.status(200).send('You passed')
+    res.statusCode = 200
+    res.end('You passed')
 })
 
 app.listen(8080, function() {
