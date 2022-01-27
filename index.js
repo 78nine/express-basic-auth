@@ -71,16 +71,17 @@ function buildMiddleware(options) {
                 if(realmName)
                     challengeString += ' realm="' + realmName + '"'
 
-                res.set('WWW-Authenticate', challengeString)
+                res.setHeader('WWW-Authenticate', challengeString)
             }
 
             //TODO: Allow response body to be JSON (maybe autodetect?)
             const response = getResponseBody(req)
+            const contentType = typeof response == 'string' ? 'text/plain' : 'application/json'
+            const body = typeof response == 'string' ? response : JSON.stringify(response)
 
-            if(typeof response == 'string')
-                return res.status(401).send(response)
+            res.writeHead(401, { 'Content-Type': contentType })
 
-            return res.status(401).json(response)
+            return res.end(body)
         }
 
         function authorizerCallback(err, approved) {
