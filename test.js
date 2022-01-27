@@ -1,10 +1,12 @@
 const should = require('should')
-const express = require('express')
+const polka = require('polka')
 const supertest = require('supertest')
 
 const basicAuth = require('./index.js')
 
-var app = express()
+var app = polka()
+app.listen()
+app.address = app.server.address.bind(app.server)
 
 //Requires basic auth with username 'Admin' and password 'secret1234'
 var staticUserAuth = basicAuth({
@@ -67,43 +69,53 @@ var realmFunctionAuth = basicAuth({
 })
 
 app.get('/static', staticUserAuth, function(req, res) {
-    res.status(200).send('You passed')
+    res.statusCode = 200
+    res.end('You passed')
 })
 
 app.get('/custom', customAuthorizerAuth, function(req, res) {
-    res.status(200).send('You passed')
+    res.statusCode = 200
+    res.end('You passed')
 })
 
 app.get('/custom-compare', customCompareAuth, function(req, res) {
-    res.status(200).send('You passed')
+    res.statusCode = 200
+    res.end('You passed')
 })
 
 app.get('/challenge', challengeAuth, function(req, res) {
-    res.status(200).send('You passed')
+    res.statusCode = 200
+    res.end('You passed')
 })
 
 app.get('/async', asyncAuth, function(req, res) {
-    res.status(200).send('You passed')
+    res.statusCode = 200
+    res.end('You passed')
 })
 
 app.get('/custombody', customBodyAuth, function(req, res) {
-    res.status(200).send('You passed')
+    res.statusCode = 200
+    res.end('You passed')
 })
 
 app.get('/staticbody', staticBodyAuth, function(req, res) {
-    res.status(200).send('You passed')
+    res.statusCode = 200
+    res.end('You passed')
 })
 
 app.get('/jsonbody', jsonBodyAuth, function(req, res) {
-    res.status(200).send('You passed')
+    res.statusCode = 200
+    res.end('You passed')
 })
 
 app.get('/realm', realmAuth, function(req, res) {
-    res.status(200).send('You passed')
+    res.statusCode = 200
+    res.end('You passed')
 })
 
 app.get('/realmfunction', realmFunctionAuth, function(req, res) {
-    res.status(200).send('You passed')
+    res.statusCode = 200
+    res.end('You passed')
 })
 
 //Custom authorizer checking if the username starts with 'A' and the password with 'secret'
@@ -128,6 +140,10 @@ function getUnauthorizedResponse(req) {
 }
 
 describe('express-basic-auth', function() {
+    this.afterAll(function() {
+        app.server.close()
+    })
+
     describe('safe compare', function() {
         const safeCompare = basicAuth.safeCompare
 

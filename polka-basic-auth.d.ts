@@ -1,6 +1,6 @@
-/// <reference types="express" />
+/// <reference types="polka" />
 
-import { Request, RequestHandler } from 'express'
+import { Request, Middleware } from 'polka'
 
 /**
  * This is the middleware builder.
@@ -11,9 +11,9 @@ import { Request, RequestHandler } from 'express'
  *
  * @param options The middleware's options (at least 'users' or 'authorizer' are mandatory).
  */
-declare function expressBasicAuth(options: expressBasicAuth.BasicAuthMiddlewareOptions): RequestHandler
+declare function polkaBasicAuth(options: polkaBasicAuth.BasicAuthMiddlewareOptions): Middleware
 
-declare namespace expressBasicAuth {
+declare namespace polkaBasicAuth {
     /**
      * Time safe string comparison function to protect against timing attacks.
      * 
@@ -37,7 +37,7 @@ declare namespace expressBasicAuth {
     export type BasicAuthMiddlewareOptions = IUsersOptions | (IAuthorizerOptions | IAsyncAuthorizerOptions)
 
     /**
-     * express-basic-auth patches the request object to set an `auth` property that lets you retrieve the authed user.
+     * polka-basic-auth patches the request object to set an `auth` property that lets you retrieve the authed user.
      *
      * Example (TypeScript):
      *     app.use(basicAuth({ ... }), (req: basicAuth.IBasicAuthedRequest, res, next) => {
@@ -79,7 +79,7 @@ declare namespace expressBasicAuth {
         /**
          * Per default, the response body for unauthorized responses will be empty.
          * It can be configured using the unauthorizedResponse option. You can either pass a static response or a
-         * function that gets passed the express request object and is expected to return the response body.
+         * function that gets passed the Polka request object and is expected to return the response body.
          * If the response body is a string, it will be used as-is, otherwise it will be sent as JSON.
          *
          * @default ''
@@ -148,4 +148,4 @@ declare namespace expressBasicAuth {
     }
 }
 
-export = expressBasicAuth
+export = polkaBasicAuth
