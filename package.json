@@ -1,5 +1,5 @@
 {
-  "name": "polka-basic-auth",
+  "name": "@78nine/polka-basic-auth",
   "version": "1.2.1",
   "description": "Plug & play basic auth middleware for Polka",
   "main": "index.js",
