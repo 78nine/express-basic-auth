@@ -1,3 +1,13 @@
+# polka-basic-auth
+
+This is just a port to Polka... some minor changes to make it work...
+
+All the credit goes to the original author... hence... the original description below...
+
+You only need to change a name of the package to `@79nine/polka-basic-auth` ;)
+
+---
+
 # express-basic-auth
 
 [![npm version](https://badge.fury.io/js/express-basic-auth.svg)](https://badge.fury.io/js/express-basic-auth)
